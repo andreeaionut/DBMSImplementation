@@ -4,7 +4,11 @@
     <bookmark url="file://$PROJECT_DIR$/Server/src/main/java/RedisServer.java" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5681aa64-217c-4ab7-95c6-abeae5c55ea2" name="Default" comment="" />
+    <list default="true" id="5681aa64-217c-4ab7-95c6-abeae5c55ea2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/Client/src/main/java/FakeMainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/FakeMainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/main/java/LoginRegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/LoginRegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/Server.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/Server/target/" />
@@ -50,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginRegisterController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoginRegisterController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/LoginRegisterController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1090">
-              <caret line="88" column="31" lean-forward="true" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
+            <state relative-caret-position="291">
+              <caret line="86" column="49" selection-start-line="86" selection-start-column="49" selection-end-line="86" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3744#3745#0" expanded="true" />
@@ -89,8 +93,8 @@
       <file leaf-file-name="FakeMainController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/main/java/FakeMainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="569" selection-start-line="569" selection-end-line="569" />
+            <state relative-caret-position="175">
+              <caret line="585" column="41" lean-forward="true" selection-start-line="585" selection-start-column="41" selection-end-line="585" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2460#2461#0" expanded="true" />
@@ -99,41 +103,11 @@
                 <element signature="e#4702#4703#0" expanded="true" />
                 <element signature="e#38238#38239#0" expanded="true" />
                 <element signature="e#38272#38273#0" expanded="true" />
+                <element signature="e#25236#25237#0" expanded="true" />
+                <element signature="e#25271#25272#0" expanded="true" />
+                <element signature="e#25328#25329#0" expanded="true" />
+                <element signature="e#25376#25377#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Client/src/main/java/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="43" column="49" selection-start-line="43" selection-start-column="49" selection-end-line="43" selection-end-column="49" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TableField.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Model/src/main/java/TableField.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-491">
-              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-              <folding>
-                <element signature="e#1664#1665#0" expanded="true" />
-                <element signature="e#1692#1693#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StartClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Client/src/main/java/StartClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -196,6 +170,9 @@
       <replace>String</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -245,11 +222,11 @@
         <option value="$PROJECT_DIR$/Server/src/main/java/ClientRpcReflectionWorker.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/StartClient.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/MainController.java" />
-        <option value="$PROJECT_DIR$/Client/src/main/java/LoginRegisterController.java" />
         <option value="$PROJECT_DIR$/Client/src/main/resources/FakeMainView.fxml" />
-        <option value="$PROJECT_DIR$/Client/src/main/java/FakeMainController.java" />
         <option value="$PROJECT_DIR$/Model/src/main/java/TableField.java" />
         <option value="$PROJECT_DIR$/Client/src/main/java/Server.java" />
+        <option value="$PROJECT_DIR$/Client/src/main/java/FakeMainController.java" />
+        <option value="$PROJECT_DIR$/Client/src/main/java/LoginRegisterController.java" />
       </list>
     </option>
   </component>
@@ -290,6 +267,7 @@
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -553,12 +531,12 @@
       <workItem from="1575986883489" duration="42865000" />
       <workItem from="1578389898717" duration="83886000" />
       <workItem from="1579509202550" duration="623000" />
-      <workItem from="1580038747625" duration="9926000" />
+      <workItem from="1580038747625" duration="10560000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="395269000" />
+    <option name="totallyTimeSpent" value="395903000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -573,7 +551,7 @@
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.7" side_tool="true" visible="true" weight="0.34887007" />
       <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.49816176" weight="0.13154362" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.3" visible="true" weight="0.34887007" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32909605" />
       <window_info id="Capture Tool" order="3" />
@@ -1027,20 +1005,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/main/java/LoginRegisterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1090">
-          <caret line="88" column="31" lean-forward="true" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3744#3745#0" expanded="true" />
-            <element signature="e#3778#3779#0" expanded="true" />
-            <element signature="e#3823#3824#0" expanded="true" />
-            <element signature="e#3859#3860#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Model/src/main/java/TableField.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-491">
@@ -1052,10 +1016,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/main/java/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/main/java/FakeMainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="569" selection-start-line="569" selection-end-line="569" />
+        <state relative-caret-position="175">
+          <caret line="585" column="41" lean-forward="true" selection-start-line="585" selection-start-column="41" selection-end-line="585" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2460#2461#0" expanded="true" />
@@ -1064,16 +1038,24 @@
             <element signature="e#4702#4703#0" expanded="true" />
             <element signature="e#38238#38239#0" expanded="true" />
             <element signature="e#38272#38273#0" expanded="true" />
+            <element signature="e#25236#25237#0" expanded="true" />
+            <element signature="e#25271#25272#0" expanded="true" />
+            <element signature="e#25328#25329#0" expanded="true" />
+            <element signature="e#25376#25377#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/main/java/Server.java">
+    <entry file="file://$PROJECT_DIR$/Client/src/main/java/LoginRegisterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="43" column="49" selection-start-line="43" selection-start-column="49" selection-end-line="43" selection-end-column="49" />
+        <state relative-caret-position="291">
+          <caret line="86" column="49" selection-start-line="86" selection-start-column="49" selection-end-line="86" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <element signature="e#3778#3779#0" expanded="true" />
+            <element signature="e#3823#3824#0" expanded="true" />
+            <element signature="e#3859#3860#0" expanded="true" />
           </folding>
         </state>
       </provider>
