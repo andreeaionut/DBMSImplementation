@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="FakeMainController"
+            stylesheets="style.css"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <Pane fx:id="paneDbmsTreeView" layoutX="22.0" layoutY="14.0" prefHeight="561.0" prefWidth="331.0">
+            <children>
+                <Button layoutX="9.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="82.0" text="LOGOUT" />
+            </children></Pane>
+        <Pane fx:id="paneTableFields" layoutX="353.0" layoutY="18.0" prefHeight="377.0" prefWidth="623.0">
+            <children>
+                <TableView fx:id="tableViewFields" layoutX="14.0" layoutY="14.0" prefHeight="296.0" prefWidth="598.0" />
+                <Button fx:id="btnSaveNewTable" layoutX="528.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSaveNewTable" prefHeight="29.0" prefWidth="82.0" text="Save" />
+            </children>
+        </Pane>
+        <Pane fx:id="paneForeignKey" layoutX="368.0" layoutY="396.0" prefHeight="142.0" prefWidth="178.0">
+            <children>
+                <ComboBox fx:id="cBoxTables" layoutX="14.0" layoutY="50.0" prefWidth="150.0" />
+                <Button fx:id="btnSaveForeignKey" layoutX="60.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleSaveForeignKey" prefHeight="26.0" prefWidth="58.0" text="Save" />
+                <Label layoutX="14.0" layoutY="11.0" prefHeight="26.0" prefWidth="150.0" text="Primary key table" />
+            </children>
+        </Pane>
+        <Pane fx:id="paneIndexFields" layoutX="546.0" layoutY="335.0" prefHeight="258.0" prefWidth="321.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="150.0" text="Index field" />
+                <Button fx:id="btnSaveIndex" layoutX="183.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleSaveIndex" prefHeight="25.0" prefWidth="107.0" text="Save index" />
+                <VBox fx:id="vBoxIndexFields" layoutX="14.0" layoutY="40.0" prefHeight="173.0" prefWidth="150.0" />
+                <RadioButton fx:id="rBtnUniqueIndex" layoutX="14.0" layoutY="213.0" mnemonicParsing="false" text="Unique" />
+            </children>
+        </Pane>
+        <Pane fx:id="paneTableData" layoutX="302.0" prefHeight="519.0" prefWidth="698.0">
+            <children>
+                <Button fx:id="btnInsertDeleteData" layoutX="452.0" layoutY="405.0" mnemonicParsing="false" onAction="#handleInsertDeleteData" prefHeight="29.0" prefWidth="82.0" text="Save" />
+                <VBox fx:id="vBoxInsertData" layoutX="41.0" layoutY="31.0" prefHeight="338.0" prefWidth="411.0" />
+                <Pane fx:id="paneRBtnAndOr" layoutX="65.0" layoutY="324.0" prefHeight="129.0" prefWidth="132.0">
+                    <children>
+                        <RadioButton fx:id="rBtnAnd" layoutX="27.0" layoutY="31.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="66.0" text="AND" />
+                        <RadioButton fx:id="rBtnOr" layoutX="27.0" layoutY="73.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="66.0" text="OR" />
+                    </children>
+                </Pane>
+                <Pane fx:id="paneUpdateData" layoutX="365.0" layoutY="31.0" prefHeight="296.0" prefWidth="331.0">
+                    <children>
+                        <VBox fx:id="vBoxUpdateData" layoutX="14.0" layoutY="7.0" prefHeight="284.0" prefWidth="267.0" />
+                    </children>
+                </Pane>
+            </children>
+        </Pane>
+        <Pane fx:id="paneQuery" layoutX="268.0" prefHeight="686.0" prefWidth="1521.0">
+            <children>
+                <Button layoutX="461.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleWhereAnd" text="AND" />
+                <Button fx:id="btnWhere" layoutX="371.0" layoutY="53.0" mnemonicParsing="false" onAction="#handleWhere" text="where" />
+                <VBox fx:id="vBoxWhere" layoutX="364.0" layoutY="83.0" prefHeight="244.0" prefWidth="400.0" />
+                <Label layoutX="22.0" layoutY="48.0" prefHeight="17.0" prefWidth="66.0" text="SELECT" />
+                <Label layoutX="152.0" layoutY="48.0" text="FROM" />
+                <ComboBox fx:id="cBoxFrom" layoutX="150.0" layoutY="74.0" prefWidth="150.0" />
+                <VBox fx:id="vBoxSelect" layoutX="22.0" layoutY="73.0" prefHeight="142.0" prefWidth="118.0" />
+                <Button fx:id="btnGo" layoutX="1426.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleSelect" prefHeight="25.0" prefWidth="82.0" text="GO" />
+                <Pane layoutX="22.0" layoutY="519.0" prefHeight="108.0" prefWidth="635.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="171.0" text="SELECT (date functions)" />
+                        <TextField fx:id="tfDateQuery" layoutX="33.0" layoutY="46.0" prefHeight="25.0" prefWidth="598.0" />
+                        <Button fx:id="btnGoDate" layoutX="33.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleGoDate" text="GO" />
+                    </children>
+                </Pane>
+                <VBox fx:id="vBoxSelectResult" layoutX="22.0" layoutY="327.0" prefHeight="206.0" prefWidth="1304.0" />
+                <TableView fx:id="tvQueryResult" layoutX="54.0" layoutY="627.0" prefHeight="62.0" prefWidth="571.0" />
+                <CheckBox fx:id="chkJoin" layoutX="819.0" layoutY="40.0" mnemonicParsing="false" text="Join" />
+                <Button layoutX="937.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleAddNewJoin" text="add join" />
+                <VBox fx:id="vbJoin" layoutX="819.0" layoutY="66.0" prefHeight="188.0" prefWidth="275.0" />
+                <Button fx:id="btnEMSJ" layoutX="819.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleExternalJoin" prefHeight="17.0" prefWidth="178.0" text="External Join" />
+                <VBox fx:id="vbGroupBy" layoutX="1107.0" layoutY="70.0" prefHeight="29.0" prefWidth="132.0">
+                    <children>
+                        <ComboBox fx:id="cbGroupBy" prefWidth="150.0" />
+                    </children>
+                </VBox>
+                <Button layoutX="1119.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleGroupBy" prefHeight="25.0" prefWidth="107.0" text="GROUP BY" />
+                <Button layoutX="1125.0" layoutY="112.0" mnemonicParsing="false" onAction="#handleHaving" prefHeight="25.0" prefWidth="107.0" text="HAVING" />
+                <VBox fx:id="vbHaving" layoutX="1125.0" layoutY="144.0" prefHeight="200.0" prefWidth="393.0" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

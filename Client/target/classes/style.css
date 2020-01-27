@@ -1,0 +1,70 @@
+.label {
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( gaussian , rgba(214, 66, 20, 0.5), 0,0,0,1 );
+}
+
+.table-row-cell{
+    -fx-text-fill: black;
+    -fx-background-color: #F5F5F5;
+}
+
+.table-row-cell:selected {
+    -fx-text-fill: black;
+    -fx-background-color: #B0E0E6;
+}
+
+.menu .label {
+    -fx-text-fill: 	#A9A9A9;
+    -fx-font-size: 0.5cm;
+}
+
+.menu-item{
+    -fx-background-color: #F5F5F5;
+    -fx-text-fill: #A9A9A9;
+}
+
+.menu-item:focused {
+    -fx-text-fill: 	#A9A9A9;
+    -fx-background-color: 	#B0E0E6;
+}
+
+.menu-bar{
+    -fx-text-fill: 	#A9A9A9;
+    -fx-background-color: #B0E0E6;
+}
+
+.text-field{
+    -fx-background-color: 	#ADD8E6;
+    -fx-text-fill: white;
+    -fx-font-family: "Georgia";
+    -fx-font-size: 0.4cm;
+}
+
+.check-box{
+    -fx-text-fill: black;
+}
+
+#mainAnchorPane, #rootChart{
+    -fx-background-color: #2A5058;
+}
+
+.button{
+    -fx-text-fill: white;
+    -fx-font-family: "Georgia";
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.button:hover{
+    -fx-background-color: #B0E0E6;
+}
+
+.combo-box {
+    -fx-pref-width: 150;
+}
+
+.combo-box-popup > .list-view {
+    -fx-pref-width: 150;
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><databases>
+    <database dataBaseName="Premium">
+        <firstName>Lokesh</firstName>
+        <lastName>Gupta</lastName>
+        <location>India</location>
+    </database>
+    <database dataBaseName="Gold">
+        <firstName>Alex</firstName>
+        <lastName>Gussin</lastName>
+        <location>Russia</location>
+    </database>
+    <database dataBaseName="Basic">
+        <firstName>David</firstName>
+        <lastName>Feezor</lastName>
+        <location>USA</location>
+    </database>
+<database dataBaseName="newdbbbbbb"/></databases>
