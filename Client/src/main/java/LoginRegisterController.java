@@ -84,6 +84,7 @@ public class LoginRegisterController {
             stage.setScene(new Scene(root, 1800, 700));
             stage.show();
             mainController.setStage(stage);
+            mainController.setActualServer(server);
             this.stage.close();
         }
         catch (IOException e) {

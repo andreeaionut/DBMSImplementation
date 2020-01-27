@@ -44,5 +44,6 @@ public class Server {
                     tableFields.add(tableField3);
             }
         }
+        return tableFields;
     }
 }

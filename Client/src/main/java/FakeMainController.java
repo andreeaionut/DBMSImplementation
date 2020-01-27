@@ -1,25 +1,15 @@
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -28,7 +18,6 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +26,7 @@ import java.util.Optional;
 public class FakeMainController {
 
     private Stage stage;
-
+    private IServer actualServer;
     @FXML
     private Pane paneDbmsTreeView;
     @FXML
@@ -618,7 +607,7 @@ public class FakeMainController {
             loader.setLocation(getClass().getResource("LoginView.fxml"));
             root = loader.load();
             LoginRegisterController loginRegisterController = loader.getController();
-            loginRegisterController.setServer(server);
+            loginRegisterController.setServer(actualServer);
             Stage stage = new Stage();
             stage.setTitle("Login");
             stage.setScene(new Scene(root, 600, 400));
@@ -633,5 +622,13 @@ public class FakeMainController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public IServer getActualServer() {
+        return actualServer;
+    }
+
+    public void setActualServer(IServer actualServer) {
+        this.actualServer = actualServer;
     }
 }
