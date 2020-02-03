@@ -776,8 +776,8 @@ public class ServerImplementation implements IServer {
     }
 
     @Override
-    public boolean changePassword(String email, String oldPassword, String newPassword) throws ManagerException {
-        return false;
+    public boolean changePassword(String username, String oldPassword, String newPassword) throws ManagerException {
+        return this.loginRegisterServer.changePassword(username, oldPassword, newPassword);
     }
 
     private Node getIndexFileNode(Document doc, IndexContainer indexContainer) {

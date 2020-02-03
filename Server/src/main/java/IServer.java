@@ -29,5 +29,5 @@ public interface IServer extends Remote {
     void externalSortJoin(String database) throws ManagerException;
 
     boolean register(String email, String username, String password, String accessCode) throws ManagerException;
-    boolean changePassword(String email, String oldPassword, String newPassword) throws ManagerException;
+    boolean changePassword(String username, String oldPassword, String newPassword) throws ManagerException;
 }

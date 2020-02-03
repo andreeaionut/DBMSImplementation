@@ -61,7 +61,7 @@ public class LoginRegisterController {
         }
         try {
             if(server.login(username, password)){
-                this.startDBMS();
+                this.startDBMS(username);
             }else{
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Incorrect username or password");
                 alert.show();
@@ -128,7 +128,7 @@ public class LoginRegisterController {
         }
     }
 
-    private void startDBMS() {
+    private void startDBMS(String username) {
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -137,6 +137,7 @@ public class LoginRegisterController {
             MainController mainController = loader.getController();
             mainController.setServer(server);
             mainController.initView();
+            mainController.setCurrentUser(username);
             Stage stage = new Stage();
             stage.setTitle("Databases Management Studio");
             stage.setScene(new Scene(root, 1800, 700));

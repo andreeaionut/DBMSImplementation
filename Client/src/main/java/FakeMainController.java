@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -10,6 +11,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,11 +22,13 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -788,6 +792,39 @@ public class FakeMainController implements IController {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleChangePassword(){
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("TestName");
+        ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(20, 150, 10, 10));
+
+        PasswordField oldPassField = new PasswordField();
+        oldPassField.setPromptText("old password");
+        PasswordField newPassField = new PasswordField();
+        newPassField.setPromptText("new password");
+
+        gridPane.add(oldPassField, 0, 0);
+        gridPane.add(newPassField, 0, 1);
+        dialog.getDialogPane().setContent(gridPane);
+        Platform.runLater(() -> oldPassField.requestFocus());
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                return new Pair<>(oldPassField.getText(), newPassField.getText());
+            }
+            return null;
+        });
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+        result.ifPresent(pair -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Password changed successfully!");
+            alert.show();
+        });
     }
 
     public void setStage(Stage stage) {

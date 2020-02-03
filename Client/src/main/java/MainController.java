@@ -1330,47 +1330,43 @@ public class MainController implements IObserver, IController {
     }
 
     public void handleChangePassword(){
-//        Dialog<Pair<String, String>> dialog = new Dialog<>();
-//        dialog.setTitle("TestName");
-//
-//        // Set the button types.
-//        ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-//        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
-//
-//        GridPane gridPane = new GridPane();
-//        gridPane.setHgap(10);
-//        gridPane.setVgap(10);
-//        gridPane.setPadding(new Insets(20, 150, 10, 10));
-//
-//        PasswordField oldPassField = new PasswordField();
-//        oldPassField.setPromptText("old password");
-//        PasswordField newPassField = new PasswordField();
-//        newPassField.setPromptText("new password");
-//
-//        gridPane.add(oldPassField, 0, 0);
-//        gridPane.add(new Label("To:"), 1, 0);
-//        gridPane.add(newPassField, 2, 0);
-//
-//        dialog.getDialogPane().setContent(gridPane);
-//        Platform.runLater(() -> oldPassField.requestFocus());
-//
-////        // Convert the result to a username-password-pair when the login button is clicked.
-////        dialog.setResultConverter(dialogButton -> {
-////            if (dialogButton == loginButtonType) {
-////                return new Pair<>(oldPassField.getText(), newPassField.getText());
-////            }
-////            return null;
-////        });
-//
-//        Optional<Pair<String, String>> result = dialog.showAndWait();
-//
-//        result.ifPresent(pair -> {
-//            System.out.println("old pass =" + pair.getKey() + ", new pass =" + pair.getValue());
-//        });
-//
-//        //this.server.changePassword(currentUser);
-    }
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("TestName");
+        ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(20, 150, 10, 10));
 
+        PasswordField oldPassField = new PasswordField();
+        oldPassField.setPromptText("old password");
+        PasswordField newPassField = new PasswordField();
+        newPassField.setPromptText("new password");
+
+        gridPane.add(oldPassField, 0, 0);
+        gridPane.add(newPassField, 0, 1);
+        dialog.getDialogPane().setContent(gridPane);
+        Platform.runLater(() -> oldPassField.requestFocus());
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == loginButtonType) {
+                return new Pair<>(oldPassField.getText(), newPassField.getText());
+            }
+            return null;
+        });
+        Optional<Pair<String, String>> result = dialog.showAndWait();
+        result.ifPresent(pair -> {
+            try {
+                this.server.changePassword(currentUser, pair.getKey(), pair.getValue());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Password changed successfully!");
+                alert.show();
+            } catch (ManagerException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                alert.show();
+            }
+        });
+    }
 
     public void setStage(Stage stage) {
         this.stage = stage;

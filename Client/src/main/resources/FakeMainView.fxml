@@ -15,7 +15,8 @@
     <children>
         <Pane fx:id="paneDbmsTreeView" layoutX="22.0" layoutY="14.0" prefHeight="561.0" prefWidth="331.0">
             <children>
-                <Button layoutX="9.0" layoutY="521.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="82.0" text="LOGOUT" />
+                <Button layoutX="53.0" layoutY="523.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="25.0" prefWidth="82.0" text="LOGOUT" />
+            <Button layoutX="17.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleChangePassword" prefHeight="25.0" prefWidth="150.0" text="Change password" />
             </children></Pane>
       <Pane fx:id="paneTableFields" layoutX="363.0" layoutY="28.0" prefHeight="377.0" prefWidth="623.0">
          <children>

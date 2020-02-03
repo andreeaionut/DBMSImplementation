@@ -260,6 +260,17 @@ public class ClientRpcReflectionWorker implements Runnable, IObserver {
         return new Response.Builder().type(ResponseType.REGISTER).data(result).build();
     }
 
+    private Response handleCHANGE_PASSWORD(Request request) {
+        ChangePasswordRequest changePasswordRequest = (ChangePasswordRequest) request.data();
+        boolean result;
+        try {
+            result = server.changePassword(changePasswordRequest.getUsername(), changePasswordRequest.getOldPassword(), changePasswordRequest.getNewPassword());
+        } catch (ManagerException e) {
+            return new Response.Builder().type(ResponseType.ERROR).data(e.getMessage()).build();
+        }
+        return new Response.Builder().type(ResponseType.CHANGE_PASSWORD).data(result).build();
+    }
+
 
     private void sendResponse(Response response) throws IOException{
         System.out.println("sending response "+response);

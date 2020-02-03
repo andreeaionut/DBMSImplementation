@@ -388,7 +388,16 @@ public class ServerRpcProxy implements IServer {
     }
 
     @Override
-    public boolean changePassword(String email, String oldPassword, String newPassword) throws ManagerException {
-        return false;
+    public boolean changePassword(String username, String oldPassword, String newPassword) throws ManagerException {
+        ChangePasswordRequest changePasswordRequest = new ChangePasswordRequest(username, oldPassword, newPassword);
+        Request req = new Request.Builder().type(RequestType.CHANGE_PASSWORD).data(changePasswordRequest).build();
+        System.out.println(req);
+        sendRequest(req);
+        Response response=readResponse();
+        if (response.type()== ResponseType.ERROR){
+            String err=response.data().toString();
+            throw new ManagerException(err);
+        }
+        return true;
     }
 }

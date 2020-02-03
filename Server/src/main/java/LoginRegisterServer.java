@@ -48,6 +48,11 @@ public class LoginRegisterServer {
             throw new ManagerException("Username already exists!");
         }
         this.saveUser(email, username);
+        this.saveUserPasswordData(username, password);
+        return true;
+    }
+
+    private void saveUserPasswordData(String username, String password){
         List<String> sweetWordsList = this.getSweetWordsList(password);
         int currentIndex = 0;
         for(String sweetword : sweetWordsList){
@@ -57,7 +62,6 @@ public class LoginRegisterServer {
             this.saveSweetWord(username, sweetword, currentIndex);
             currentIndex++;
         }
-        return true;
     }
 
     private void saveSweetWord(String username, String sweetWord, int currentIndex) {
@@ -232,4 +236,58 @@ public class LoginRegisterServer {
         }
         return "";
     }
+
+    public boolean changePassword(String username, String oldPassword, String newPassword) throws ManagerException{
+        int userId = this.findUserId(username);
+        int passIndex = this.getSweetWordIndex(userId, oldPassword);
+        if(passIndex == -1){
+            throw new ManagerException("Incorrect password!");
+        }
+        if(honeyChecker.checkIndex(userId, passIndex)){
+            if(!Validator.validatePassword(newPassword)){
+                throw new ManagerException("Password must contain at least 6 characters, one number and one capital letter!");
+            }
+            this.deleteOldUserPasswordData(userId);
+            this.saveUserPasswordData(username, newPassword);
+        }else{
+            this.sendAlertEmail(userId);
+        }
+        return true;
+    }
+
+    private void deleteOldUserPasswordData(int userId) {
+        this.deleteUserSweetwords(userId);
+        this.deleteUserIndex(userId);
+    }
+
+    private void deleteUserSweetwords(int userId) {
+        Connection con = dbUtils.getConnection();
+        try (PreparedStatement preStmt = con.prepareStatement("DELETE from SWEETWORDS WHERE user_id=?")) {
+            preStmt.setInt(1,userId);
+            preStmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error DB" + e);
+        }
+        try {
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error DB" + e);
+        }
+    }
+
+    private void deleteUserIndex(int userId) {
+        Connection con = dbUtils.getConnection();
+        try (PreparedStatement preStmt = con.prepareStatement("DELETE from indexes WHERE user_id=?")) {
+            preStmt.setInt(1,userId);
+            preStmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error DB" + e);
+        }
+        try {
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error DB" + e);
+        }
+    }
+
 }
