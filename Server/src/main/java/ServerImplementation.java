@@ -775,6 +775,11 @@ public class ServerImplementation implements IServer {
         return this.loginRegisterServer.register(email, username, password, accessCode);
     }
 
+    @Override
+    public boolean changePassword(String email, String oldPassword, String newPassword) throws ManagerException {
+        return false;
+    }
+
     private Node getIndexFileNode(Document doc, IndexContainer indexContainer) {
         Node newIndexFile = doc.createElement("indexFile");
         ((Element) newIndexFile).setAttribute("indexName", indexContainer.getIndexName() + ".ind");

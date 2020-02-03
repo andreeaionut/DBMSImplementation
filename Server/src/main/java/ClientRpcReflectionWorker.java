@@ -107,7 +107,6 @@ public class ClientRpcReflectionWorker implements Runnable, IObserver {
         return okResponse;
     }
 
-
     private Response handleDELETE_TABLE(Request request) throws RemoteException {
         try {
             NetworkingContainer networkingContainer = (NetworkingContainer) request.data();

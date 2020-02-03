@@ -15,7 +15,7 @@ public class HoneyChecker {
         try(PreparedStatement preStmt=con.prepareStatement("select * from indexes WHERE user_id=" + userId+ ";")) {
             try(ResultSet result=preStmt.executeQuery()) {
                 while (result.next()) {
-                    int trueIndex = result.getInt(3);
+                    int trueIndex = result.getInt("user_true_index");
                     return trueIndex == sweetWordIndex;
                 }
             }
@@ -24,6 +24,4 @@ public class HoneyChecker {
         }
         return false;
     }
-
-
 }

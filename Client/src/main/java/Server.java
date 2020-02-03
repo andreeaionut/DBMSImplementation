@@ -173,4 +173,9 @@ public class Server implements IServer {
     public boolean register(String email, String username, String password, String accesCode) throws ManagerException {
         return false;
     }
+
+    @Override
+    public boolean changePassword(String email, String oldPassword, String newPassword) throws ManagerException {
+        return false;
+    }
 }

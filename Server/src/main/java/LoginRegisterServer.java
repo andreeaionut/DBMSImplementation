@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,11 +18,20 @@ public class LoginRegisterServer {
     private JdbcUtils dbUtils;
     private HoneyChecker honeyChecker;
 
+    //private IHoneyServer honeyServer;
+    private static int defaultChatPort = 55550;
+    private static String defaultServer = "localhost";
+
     private int numberOfHoneyWords = 20;
 
     public LoginRegisterServer(Properties properties){
         this.dbUtils = new JdbcUtils(properties);
         this.honeyChecker = new HoneyChecker(dbUtils);
+//        System.out.println("Using server IP " + defaultServer);
+//        System.out.println("Using server port " + defaultChatPort);
+//
+//        IHoneyServer server = new HoneyServerRpcProxy(defaultServer, defaultChatPort);
+//        this.honeyServer = server;
     }
 
     public boolean register(String email, String username, String password, String accessCode) throws ManagerException {
@@ -152,6 +162,7 @@ public class LoginRegisterServer {
         for(int counter = 0; counter < this.numberOfHoneyWords; counter++){
             sweetWords.add(Utils.shuffle(password));
         }
+        Collections.shuffle(sweetWords);
         return sweetWords;
     }
 
@@ -191,6 +202,9 @@ public class LoginRegisterServer {
         int userId = this.findUserId(username);
         if(userId > 0){
             int passIndex = this.getSweetWordIndex(userId, password);
+            if(passIndex < 0){
+                return false;
+            }
             if(honeyChecker.checkIndex(userId, passIndex)){
                 return true;
             }

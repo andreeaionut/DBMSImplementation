@@ -386,4 +386,9 @@ public class ServerRpcProxy implements IServer {
         }
         return true;
     }
+
+    @Override
+    public boolean changePassword(String email, String oldPassword, String newPassword) throws ManagerException {
+        return false;
+    }
 }

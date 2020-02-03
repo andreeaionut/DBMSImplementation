@@ -23,9 +23,6 @@ public class JdbcUtils {
         String url=jdbcProps.getProperty("tasks.jdbc.url");
         String user=jdbcProps.getProperty("tasks.jdbc.user");
         String pass=jdbcProps.getProperty("tasks.jdbc.pass");
-//        String url="jdbc:postgresql://localhost:5432/Crypto";
-//        String user="postgres";
-//        String pass="javalogin";
 
         Connection con=null;
         try {

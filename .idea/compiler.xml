@@ -12,6 +12,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="HoneyServer" target="8" />
       <module name="Networking" target="1.5" />
     </bytecodeTargetLevel>
   </component>

@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,6 +9,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,11 +18,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -94,10 +100,13 @@ public class MainController implements IObserver, IController {
     private VBox vbJoin;
     @FXML
     private VBox vbHaving;
+    @FXML
+    private Button btnChangePass;
 
     private String lastJoinTable;
 
     private IServer server;
+    private String currentUser;
     private Stage stage;
     private List<String> selectedTableFields = new ArrayList<>();
 
@@ -1320,7 +1329,58 @@ public class MainController implements IObserver, IController {
         }
     }
 
+    public void handleChangePassword(){
+//        Dialog<Pair<String, String>> dialog = new Dialog<>();
+//        dialog.setTitle("TestName");
+//
+//        // Set the button types.
+//        ButtonType loginButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+//        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//
+//        GridPane gridPane = new GridPane();
+//        gridPane.setHgap(10);
+//        gridPane.setVgap(10);
+//        gridPane.setPadding(new Insets(20, 150, 10, 10));
+//
+//        PasswordField oldPassField = new PasswordField();
+//        oldPassField.setPromptText("old password");
+//        PasswordField newPassField = new PasswordField();
+//        newPassField.setPromptText("new password");
+//
+//        gridPane.add(oldPassField, 0, 0);
+//        gridPane.add(new Label("To:"), 1, 0);
+//        gridPane.add(newPassField, 2, 0);
+//
+//        dialog.getDialogPane().setContent(gridPane);
+//        Platform.runLater(() -> oldPassField.requestFocus());
+//
+////        // Convert the result to a username-password-pair when the login button is clicked.
+////        dialog.setResultConverter(dialogButton -> {
+////            if (dialogButton == loginButtonType) {
+////                return new Pair<>(oldPassField.getText(), newPassField.getText());
+////            }
+////            return null;
+////        });
+//
+//        Optional<Pair<String, String>> result = dialog.showAndWait();
+//
+//        result.ifPresent(pair -> {
+//            System.out.println("old pass =" + pair.getKey() + ", new pass =" + pair.getValue());
+//        });
+//
+//        //this.server.changePassword(currentUser);
+    }
+
+
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
     }
 }
