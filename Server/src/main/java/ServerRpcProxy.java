@@ -134,7 +134,10 @@ public class ServerRpcProxy implements IServer {
             String err=response.data().toString();
             throw new ManagerException(err);
         }
-        return true;
+        if(response.type() == ResponseType.LOGIN){
+            return (boolean) response.data();
+        }
+        return false;
     }
 
     @Override

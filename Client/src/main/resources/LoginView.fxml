@@ -21,12 +21,13 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="120.0" layoutY="61.0" text="REGISTER" />
-                  <TextField fx:id="txtEmail" layoutX="72.0" layoutY="111.0" promptText="email" />
-                  <TextField fx:id="txtUserRegister" layoutX="71.0" layoutY="155.0" promptText="username" />
-                  <PasswordField fx:id="txtPassRegister" layoutX="71.0" layoutY="203.0" promptText="password" />
-                  <TextField fx:id="txtAccessCode" layoutX="71.0" layoutY="252.0" promptText="access-code" />
+                  <Label layoutX="120.0" layoutY="31.0" text="REGISTER" />
+                  <TextField fx:id="txtEmail" layoutX="72.0" layoutY="81.0" promptText="email" />
+                  <TextField fx:id="txtUserRegister" layoutX="71.0" layoutY="125.0" promptText="username" />
+                  <PasswordField fx:id="txtPassRegister" layoutX="71.0" layoutY="173.0" promptText="password" />
                   <Button layoutX="120.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleRegister" text="Submit" />
+                  <PasswordField fx:id="txtConfPassRegister" layoutX="72.0" layoutY="220.0" promptText="confirm password" />
+                  <PasswordField fx:id="txtAccessCode" layoutX="73.0" layoutY="268.0" promptText="access-code" />
                </children>
             </AnchorPane>
         </items>

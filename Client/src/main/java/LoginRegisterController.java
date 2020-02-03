@@ -7,8 +7,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Text;
-import java.awt.*;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
@@ -34,7 +32,9 @@ public class LoginRegisterController {
     @FXML
     private PasswordField txtPassRegister;
     @FXML
-    private TextField txtAccessCode;
+    private PasswordField txtConfPassRegister;
+    @FXML
+    private PasswordField txtAccessCode;
 
     public LoginRegisterController(){
         try {
@@ -96,12 +96,24 @@ public class LoginRegisterController {
         String email = this.txtEmail.getText();
         String username = this.txtUserRegister.getText();
         String password = this.txtPassRegister.getText();
+        String confPassword = this.txtConfPassRegister.getText();
         String accessCode = this.txtAccessCode.getText();
         if(email == null ||
                 username == null ||
                 password == null ||
+                confPassword == null ||
                 accessCode == null || email.compareTo("")==0 || username.compareTo("")==0 || password.compareTo("")==0 || accessCode.compareTo("")==0){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please complete all fields");
+            alert.show();
+            return;
+        }
+        if(!Validator.validateEmail(email)){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid email address!");
+            alert.show();
+            return;
+        }
+        if(password.compareTo(confPassword)!=0){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Passwords do not match!");
             alert.show();
             return;
         }

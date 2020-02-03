@@ -1,6 +1,6 @@
 import java.rmi.ServerException;
 
-public class StartRpcServer {
+public class StartRpcServer{
     private static int defaultPort = 55552;
 
     public static void main(String[] args) {

@@ -6,10 +6,11 @@ import java.rmi.RemoteException;
 
 public class DatabaseTreeItem extends AbstractTreeItem {
     private IServer server;
-    private MainController controller;
+    private IController controller;
 
-    public DatabaseTreeItem(String name) {
+    public DatabaseTreeItem(String name, IController controller) {
         this.setValue(name);
+        this.controller = controller;
     }
 
     @Override
@@ -53,9 +54,9 @@ public class DatabaseTreeItem extends AbstractTreeItem {
 
     public IServer getServer(){ return this.server; }
 
-    public void setController(MainController controller) {
+    public void setController(IController controller) {
         this.controller = controller;
     }
 
-    public MainController getController() {return this.controller;}
+    public IController getController() {return this.controller;}
 }

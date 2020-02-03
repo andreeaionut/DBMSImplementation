@@ -17,16 +17,21 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ServerImplementation implements IServer {
 
     private String file = "D:\\2019-2020\\DBMS\\dbms.xml";
 
     private RedisServer redisServer;
+    private LoginRegisterServer loginRegisterServer;
 
     public ServerImplementation(){
         this.redisServer = new RedisServer();
         this.redisServer.setCatalogServer(this);
+        Properties serverProps=new Properties();
+        this.loginRegisterServer = new LoginRegisterServer(serverProps);
+        System.out.println(loginRegisterServer.size() + "SIZEEEEEEEEEEEEEEEEEEEEEEEE");
     }
 
     public void createDatabase(String name) throws ManagerException{
@@ -766,8 +771,8 @@ public class ServerImplementation implements IServer {
     }
 
     @Override
-    public boolean register(String email, String username, String password, String accesCode) throws ManagerException {
-        return true;
+    public boolean register(String email, String username, String password, String accessCode) throws ManagerException {
+        return this.loginRegisterServer.register(email, username, password, accessCode);
     }
 
     private Node getIndexFileNode(Document doc, IndexContainer indexContainer) {
@@ -855,7 +860,7 @@ public class ServerImplementation implements IServer {
 
     @Override
     public boolean login(String username, String password) throws ManagerException, RemoteException {
-        return true;
+        return this.loginRegisterServer.login(username, password);
     }
 
     public void changeObserver(IObserver client) throws ManagerException, RemoteException {

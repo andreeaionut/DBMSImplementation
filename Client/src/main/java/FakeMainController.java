@@ -1,15 +1,25 @@
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class FakeMainController {
+public class FakeMainController implements IController {
 
     private Stage stage;
     private IServer actualServer;
@@ -92,19 +102,21 @@ public class FakeMainController {
     }
 
     protected void initView() {
+        this.paneQuery.setVisible(false);
         this.paneTableFields.setVisible(false);
         this.paneForeignKey.setVisible(false);
         this.paneIndexFields.setVisible(false);
         this.paneTableData.setVisible(false);
         TreeItem treeRoot = new TreeItem();
         treeRoot.setExpanded(true);
-        DatabaseRootTreeItem dbs = new DatabaseRootTreeItem("Databases");
+        DatabaseRootTreeItem dbs = new DatabaseRootTreeItem("Databases", this);
             List<String> databases = this.server.getDatabases();
             if(databases == null || databases.size() == 0){
                 return;
             }
             for (String db : databases) {
-                DatabaseTreeItem database = new DatabaseTreeItem (db);
+                DatabaseTreeItem database = new DatabaseTreeItem (db, this);
+                database.setServer(this.server);
                 List<String> tables = this.server.getTables(db);
                 for(String table : tables){
                     TableTreeItem tableTreeItem = new TableTreeItem(table);
@@ -126,17 +138,149 @@ public class FakeMainController {
         this.tree = treeView;
         this.paneDbmsTreeView.getChildren().add(treeView);
         this.paneQuery.setVisible(false);
+        this.vBoxInsertData.setVisible(false);
+        this.createTableFields();
     }
 
-    private void addProjectionFields(String table){
-        DatabaseTreeItem databaseTreeItem = (DatabaseTreeItem)this.tree.getSelectionModel().getSelectedItem();
-            List<TableField> tableFields = this.server.getTableFields(databaseTreeItem.getValue().toString(), table);
-            for(TableField tableField : tableFields){
-                CheckBox checkBox = new CheckBox();
-                checkBox.setText(tableField.getName());
-                checkBox.setId(table + "#" + System.currentTimeMillis());
-                this.vBoxSelect.getChildren().add(checkBox);
+    private void createTableFields() {
+        Callback<TableColumn, TableCell> numericFactory = new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn p) {
+                return new NumericEditableTableCell();
             }
+        };
+        TableColumn<TableField, String> nameColumn = new TableColumn<>("Column Name");
+        TableColumn<TableField, FieldType> typeColumn = new TableColumn<>("Data Type");
+        TableColumn lengthColumn = createLengthColumn(numericFactory);
+        TableColumn<TableField, Boolean> pkColumn = new TableColumn<>("Primary key");
+        TableColumn<TableField, Boolean> uniqueColumn = new TableColumn<>("Unique");
+        TableColumn<TableField, TableField> actionCol = new TableColumn<>("Delete");
+
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        lengthColumn.setCellValueFactory(new PropertyValueFactory<>("length"));
+        ObservableList<FieldType> fieldTypesList = FXCollections.observableArrayList(FieldType.values());
+        typeColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TableField, FieldType>, ObservableValue<FieldType>>() {
+            @Override
+            public ObservableValue<FieldType> call(TableColumn.CellDataFeatures<TableField, FieldType> param) {
+                TableField tableField = param.getValue();
+                // INT, CHAR, DATE
+                String fieldCode = tableField.getFieldType();
+                FieldType fieldType = FieldType.getByCode(fieldCode);
+                return new SimpleObjectProperty<>(fieldType);
+            }
+        });
+        typeColumn.setCellFactory(ComboBoxTableCell.forTableColumn(fieldTypesList));
+        typeColumn.setOnEditCommit((TableColumn.CellEditEvent<TableField, FieldType> event) -> {
+            TablePosition<TableField, FieldType> pos = event.getTablePosition();
+
+            FieldType newGender = event.getNewValue();
+
+            int row = pos.getRow();
+            TableField person = event.getTableView().getItems().get(row);
+
+            person.setFieldType(newGender.getCode());
+        });
+        typeColumn.setMinWidth(120);
+
+        pkColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TableField, Boolean>, ObservableValue<Boolean>>() {
+            @Override
+            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<TableField, Boolean> param) {
+                TableField person = param.getValue();
+                SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(person.getIsPrimaryKey());
+                booleanProp.addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+                                        Boolean newValue) {
+                        person.setPrimaryKey(newValue);
+                    }
+                });
+                return booleanProp;
+            }
+        });
+        pkColumn.setCellFactory(new Callback<TableColumn<TableField, Boolean>, //
+                TableCell<TableField, Boolean>>() {
+            @Override
+            public TableCell<TableField, Boolean> call(TableColumn<TableField, Boolean> p) {
+                CheckBoxTableCell<TableField, Boolean> cell = new CheckBoxTableCell<TableField, Boolean>();
+                cell.setAlignment(Pos.CENTER);
+                return cell;
+            }
+        });
+
+        uniqueColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TableField, Boolean>, ObservableValue<Boolean>>() {
+            @Override
+            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<TableField, Boolean> param) {
+                TableField person = param.getValue();
+                SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(person.getIsUnique());
+                booleanProp.addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+                                        Boolean newValue) {
+                        person.setUnique(newValue);
+                    }
+                });
+                return booleanProp;
+            }
+        });
+        uniqueColumn.setCellFactory(new Callback<TableColumn<TableField, Boolean>, //
+                TableCell<TableField, Boolean>>() {
+            @Override
+            public TableCell<TableField, Boolean> call(TableColumn<TableField, Boolean> p) {
+                CheckBoxTableCell<TableField, Boolean> cell = new CheckBoxTableCell<TableField, Boolean>();
+                cell.setAlignment(Pos.CENTER);
+                return cell;
+            }
+        });
+
+        this.tableViewFields.getColumns().addAll(nameColumn, typeColumn, lengthColumn, pkColumn, uniqueColumn, actionCol);
+        this.tableViewFields.setEditable(true);
+        tableViewFields.setRowFactory(new Callback<TableView<TableField>, TableRow<TableField>>() {
+            @Override
+            public TableRow<TableField> call(TableView<TableField> param) {
+                TableRow<TableField> row = new TableRow<TableField>();
+                row.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if ((event.getClickCount() == 2)) {
+                            TableField myItem = new TableField();
+                            myItem.setFieldType(FieldType.INT.getCode());
+                            myItem.setPrimaryKey(false);
+                            tableViewFields.getItems().add(myItem);
+                        }
+                    }
+                });
+                return row;
+            }
+        });
+
+        nameColumn.setCellFactory(TextFieldTableCell.<TableField>forTableColumn());
+        nameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<TableField, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent t) {
+                ((TableField) t.getTableView().getItems().get(
+                        t.getTablePosition().getRow())
+                ).setName((String) t.getNewValue());
+            }
+        });
+
+        actionCol.setCellValueFactory(
+                param -> new ReadOnlyObjectWrapper<>(param.getValue())
+        );
+        actionCol.setCellFactory(param -> new TableCell<TableField, TableField>() {
+            private Button deleteButton = new Button("X");
+            @Override
+            protected void updateItem(TableField person, boolean empty) {
+                super.updateItem(person, empty);
+                if (person == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(deleteButton);
+                deleteButton.setOnAction(
+                        event -> getTableView().getItems().remove(person)
+                );
+            }
+        });
     }
 
     private void initFieldsTable(){
@@ -148,6 +292,21 @@ public class FakeMainController {
         tableField.setName("id");
         ObservableList<TableField> list = FXCollections.observableArrayList(tableField);
         this.tableViewFields.setItems(list);
+    }
+
+    private TableColumn createLengthColumn(Callback<TableColumn,TableCell> numericFactory) {
+        TableColumn ageCol = new TableColumn("Length");
+        ageCol.setMinWidth(50);
+        ageCol.setCellValueFactory(new PropertyValueFactory<TableField, String>("length"));
+        ageCol.setCellFactory(numericFactory);
+        ageCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<TableField, Long>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<TableField, Long> t) {
+                long newAge = t.getNewValue().longValue();
+                ((TableField) t.getTableView().getItems().get(t.getTablePosition().getRow())).setLength(newAge);
+            }
+        });
+        return ageCol;
     }
 
     public void removeSelectedItem() {
@@ -162,7 +321,7 @@ public class FakeMainController {
 
     public void addNewDatabaseItem(String name){
         this.paneQuery.setVisible(false);
-        DatabaseTreeItem databaseTreeItem = new DatabaseTreeItem(name);
+        DatabaseTreeItem databaseTreeItem = new DatabaseTreeItem(name, this);
         this.tree.getRoot().getChildren().get(0).getChildren().add(databaseTreeItem);
     }
 
@@ -325,7 +484,6 @@ public class FakeMainController {
     }
 
     public void handleInsertData() {
-        this.vBoxInsertData.setVisible(true);
         this.paneForeignKey.setVisible(false);
         this.paneQuery.setVisible(false);
         this.paneRBtnAndOr.setVisible(false);
@@ -334,6 +492,8 @@ public class FakeMainController {
         this.paneTableData.setVisible(true);
         this.btnInsertDeleteData.setText("Insert");
         this.createVBoxInsertDeleteData(this.vBoxInsertData, true);
+        this.vBoxInsertData.setVisible(true);
+
     }
 
     public void handleDeleteData() {
@@ -420,6 +580,16 @@ public class FakeMainController {
         this.createVBoxInsertDeleteData(vBoxInsertData, true);
         this.createVBoxInsertDeleteData(vBoxUpdateData, false);
         this.paneUpdateData.setVisible(true);
+    }
+
+    @Override
+    public void handleNewForeignKey() {
+
+    }
+
+    @Override
+    public void handleNewIndex() {
+
     }
 
     public void handleNewQuery() {
@@ -630,5 +800,32 @@ public class FakeMainController {
 
     public void setActualServer(IServer actualServer) {
         this.actualServer = actualServer;
+    }
+
+    public void handleWhereAnd(ActionEvent actionEvent) {
+    }
+
+    public void handleSelect(ActionEvent actionEvent) {
+    }
+
+    public void handleGoDate(ActionEvent actionEvent) {
+    }
+
+    public void handleAddNewJoin(ActionEvent actionEvent) {
+    }
+
+    public void handleExternalJoin(ActionEvent actionEvent) {
+    }
+
+    public void handleGroupBy(ActionEvent actionEvent) {
+    }
+
+    public void handleHaving(ActionEvent actionEvent) {
+    }
+
+    public void handleSaveForeignKey(ActionEvent actionEvent) {
+    }
+
+    public void handleSaveIndex(ActionEvent actionEvent) {
     }
 }

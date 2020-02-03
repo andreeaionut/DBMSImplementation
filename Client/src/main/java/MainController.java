@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MainController implements IObserver {
+public class MainController implements IObserver, IController {
 
     @FXML
     private Pane paneDbmsTreeView;
@@ -126,7 +126,7 @@ public class MainController implements IObserver {
         this.paneTableData.setVisible(false);
         TreeItem treeRoot = new TreeItem();
         treeRoot.setExpanded(true);
-        DatabaseRootTreeItem dbs = new DatabaseRootTreeItem("Databases");
+        DatabaseRootTreeItem dbs = new DatabaseRootTreeItem("Databases", this);
         dbs.setServer(this.server);
         dbs.setController(this);
         try {
@@ -135,7 +135,7 @@ public class MainController implements IObserver {
                 return;
             }
             for (String db : databases) {
-                DatabaseTreeItem database = new DatabaseTreeItem (db);
+                DatabaseTreeItem database = new DatabaseTreeItem (db, this);
                 database.setServer(this.server);
                 database.setController(this);
 
@@ -448,7 +448,7 @@ public class MainController implements IObserver {
 
     public void addNewDatabaseItem(String name){
         this.paneQuery.setVisible(false);
-        DatabaseTreeItem databaseTreeItem = new DatabaseTreeItem(name);
+        DatabaseTreeItem databaseTreeItem = new DatabaseTreeItem(name, this);
         databaseTreeItem.setServer(server);
         databaseTreeItem.setController(this);
         this.tree.getRoot().getChildren().get(0).getChildren().add(databaseTreeItem);

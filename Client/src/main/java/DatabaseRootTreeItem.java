@@ -11,10 +11,11 @@ import java.util.Optional;
 public class DatabaseRootTreeItem extends AbstractTreeItem {
 
     private IServer server;
-    private MainController controller;
+    private IController controller;
 
-    public DatabaseRootTreeItem(String name) {
+    public DatabaseRootTreeItem(String name, IController controller) {
         this.setValue(name);
+        this.controller = controller;
     }
 
     private void addNewDbMenuItem(MenuItem menuItem){
